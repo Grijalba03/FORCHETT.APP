@@ -6,6 +6,7 @@ from flask import Flask, url_for
 from datetime import datetime
 import json
 
+#funcion signup
 @app.route('/signup' , methods=['POST'])
 def signup():
     body = request.get_json()
@@ -39,3 +40,73 @@ def signup():
         db.session.rollback()
         print(err)
         return jsonify({"mensaje": "error al registrar usuario"}), 500
+
+
+#funcion login
+@app.route('/login', methods=['POST'])
+def user_login():
+    body = request.get_json()
+    email = body['email']
+    pw = body['password']       #campo tabla usuario
+    user = User.query.filter_by(email=email).first()#entontrar la primera coincidencia
+    if user is None:
+        raise APIException("Inválido, intenta de nuevo", status_code=400) #documentar errores con codigo (recomendacion)
+    if not bcrypt.check_password_hash(user.password, pw): #comparando passwords, si no coinciden levantamos el API exception 
+        raise APIException("Inválido, intenta de nuevo" , status_code=400)
+    token = create_access_token(identity = user.id) #crear token para autenticación
+    return jsonify({"token": token})
+
+#funcion logout
+@app.route('/logout', methods=['POST'])#cualquier metodo vale
+@jwt_required()#añadiendo proteccion con token
+def user_logout():
+    jti = get_jwt()['jti']#jason token identifier
+    foundtoken = Blocked.query.filter_by(blocked_token=jti).first() #haciendo query del token segun el jti
+    if not foundtoken is None:
+        raise APIException("Token inválido, o ya expiró", status_code=400)
+    created = datetime.now(timezone.utc) #zona horaria del usuario 
+    print(created)
+    identidad = get_jwt_identity() #almacenando el ID del usuario 
+    user = User.query.get(identidad)
+    email = user.email
+    new_blocked = Blocked(blocked_token=jti, email=email, created=created)
+    db.session.add(new_blocked) 
+    db.session.commit()
+    return jsonify({"Mensaje" : "Sesión cerrada exitosamente!"})
+
+#funcion profile con proteccion
+@app.route('/profile', methods=['POST'])#cualquier metodo vale
+@jwt_required() #añadiendo proteccion con token
+def user_profile():
+    identidad = get_jwt_identity() #almacenando el ID del usuario 
+    jti = get_jwt()['jti']  #revisar status del token
+    foundtoken = Blocked.query.filter_by(blocked_token=jti).first() #haciendo query del token segun el jti
+    if not foundtoken is None:
+        raise APIException("Token inválido, o ya expiró", status_code=400)
+    user = User.query.get(identidad) 
+    return jsonify({"Usuario" : user.email})
+
+#funcion para traer usuarions con ID
+@app.route('/user/<int:user_id>', methods=['GET'])
+def get_user_by_id(user_id):
+    if user_id==0:
+        raise APIException("Id no puede ser igual a 0", status_code=400)  
+    user = User.query.get(user_id)
+    if user == None:
+        raise APIException("El usuario no existe", status_code=400)  
+    #print(user.serialize())
+    return jsonify(user.serialize()), 200
+
+#funcion para eliminar usuarions con ID
+@app.route('/user/<int:user_id>', methods=['DELETE'])
+def delete_user_by_id(user_id):
+    if user_id==0:
+        raise APIException("Id no puede ser igual a 0", status_code=400)  
+    user = User.query.get(user_id)
+    if user == None:
+        raise APIException("El usuario no existe", status_code=400)  
+    #print(user.serialize())
+    db.session.delete(user)
+    db.session.commit()
+    return jsonify("usuario eliminado exitosamente"), 200
+
