@@ -88,6 +88,15 @@ def user_profile():
     user = User.query.get(identidad) 
     return jsonify({"Usuario" : user.email})
 
+#Función get para llamar a todos los usuarios de la base de datos
+@app.route('/users', methods=['GET'])
+def get_users():
+    users = User.query.all()
+    #print(users)
+    users = list(map( lambda user: user.serialize(), users)) 
+    #print(users)  
+    return jsonify(users), 200
+
 #funcion para traer usuarions con ID
 @app.route('/user/<int:user_id>', methods=['GET'])
 def get_user_by_id(user_id):
