@@ -5,6 +5,8 @@ from ..modelos import User
 from flask import Flask, url_for
 from datetime import datetime
 import json
+from flask_jwt_extended import jwt_required
+
 
 #funcion signup
 @app.route('/signup' , methods=['POST'])
