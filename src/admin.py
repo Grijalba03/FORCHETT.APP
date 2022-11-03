@@ -3,7 +3,7 @@ from flask_admin import Admin
 from .db import db
 
 ### Importar los modelos #####
-from src.modelos import User, Planets, People, Vehicles, Favorite_People, Favorite_Planets,Favorite_Vehicles 
+from src.modelos import User, Planets, People, Vehicles, Favorite_People, Favorite_Planets, Favorite_Vehicles 
 
 from flask_admin.contrib.sqla import ModelView
 

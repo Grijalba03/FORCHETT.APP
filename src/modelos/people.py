@@ -1,5 +1,6 @@
 from ..db import db
 import os
+from .favorite_people import Favorite_People
 
 # Tabla Characters
 class People(db.Model):

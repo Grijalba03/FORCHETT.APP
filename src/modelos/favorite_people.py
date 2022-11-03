@@ -1,5 +1,7 @@
 from ..db import db
 import os
+# from .people import People 
+# from .user import User
 
 # Tabla Pivote: Characters/ Favorites
 class Favorite_People(db.Model):

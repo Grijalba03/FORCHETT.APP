@@ -1,5 +1,7 @@
 from ..db import db
 import os
+# from .planet import Planets
+# from .user import User
 
 # Tabla Pivote: Planets/ Favorites    
 #Esta es una tabla pivote para relacionar User y Planets, relación muchos a muchos

@@ -19,18 +19,21 @@ def signup():
         if body['email'] is None or body['email']=="":
             raise APIException("email es inválido" , status_code=400)
         if body['password'] is None or body['password']=="":
-            raise APIException("password es inválido" , status_code=400)      
+            raise APIException("password es inválido" , status_code=400)     
       
 
         password = bcrypt.generate_password_hash(body['password'], 10).decode("utf-8")
 
         new_user = User(email=body['email'], password=password, is_active=True)
-        users = User.query.all()
-        users = list(map( lambda user: user.serialize(), users))
+        # users = User.query.all()
+        # users = list(map( lambda user: user.serialize(), users))
 
-        for i in range(len(users)):
-            if(users[i]['email']==new_user.serialize()['email']):
-                raise APIException("El usuario ya existe" , status_code=400)
+        # for i in range(len(users)):
+        #     if(users[i]['email']==new_user.serialize()['email']):
+        #         raise APIException("El usuario ya existe" , status_code=400)
+        user = User.query.filter_by(email=body['email']).first()
+        if not user is None: 
+             raise APIException("Usuario ya existe" , status_code=400)
                 
         print(new_user)
         #print(new_user.serialize())
