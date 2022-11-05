@@ -1,11 +1,11 @@
 import os
-from ..main import request, jsonify, app, bcrypt
+from ..main import request, jsonify, app, bcrypt, jwt_required, create_access_token, get_jwt_identity, get_jwt
 from ..db import db
 from ..modelos import User
 from flask import Flask, url_for
 from datetime import datetime
 import json
-from flask_jwt_extended import jwt_required
+#from flask_jwt_extended import jwt_required
 
 
 #funcion signup

@@ -1,8 +1,6 @@
 
 from ..db import db
 import os
-# from .vehicle import Vehicles 
-# from .user import User
 
 # Tabla Pivote: Vehicles/ Favorites
 class Favorite_Vehicles(db.Model):
