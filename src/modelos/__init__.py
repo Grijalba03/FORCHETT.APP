@@ -1,4 +1,5 @@
 from .user import User
+from .blocked import Blocked
 from .planet import Planets
 from .vehicle import Vehicles
 from .people import People
