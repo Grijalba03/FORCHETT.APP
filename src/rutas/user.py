@@ -1,9 +1,9 @@
 import os
 from ..main import request, jsonify, app, bcrypt, jwt_required, create_access_token, get_jwt_identity, get_jwt
 from ..db import db
-from ..modelos import User
+from ..modelos import User, Blocked
 from flask import Flask, url_for
-from datetime import datetime
+from datetime import datetime, date, time, timezone
 import json
 #from flask_jwt_extended import jwt_required
 
