@@ -5,6 +5,7 @@ from ..modelos import User, Blocked
 from flask import Flask, url_for
 from datetime import datetime, date, time, timezone
 import json
+from ..utils import APIException
 #from flask_jwt_extended import jwt_required
 
 
@@ -32,7 +33,7 @@ def signup():
         #     if(users[i]['email']==new_user.serialize()['email']):
         #         raise APIException("El usuario ya existe" , status_code=400)
         user = User.query.filter_by(email=body['email']).first()
-        if not user is None: 
+        if not user: 
              raise APIException("Usuario ya existe" , status_code=400)
                 
         print(new_user)
