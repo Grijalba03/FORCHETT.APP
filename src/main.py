@@ -35,7 +35,7 @@ setup_admin(app)
 from src.modelos import Blocked, User, Planets, People, Vehicles, Favorite_People, Favorite_Planets, Favorite_Vehicles 
 
 ##### Importar las Rutas ####
-from src.rutas import signup, user_login, user_logout, user_profile, get_user_by_id, delete_user_by_id, get_users
+from src.rutas import signup, user_login, user_logout, user_profile, get_user_by_id, delete_user_by_id, get_users, hello_protected
 from src.rutas import get_people, get_people_by_id, create_new_person, put_people_by_id, busqueda_people, delete_character_by_id
 from src.rutas import get_planets, get_planet_by_id, create_new_planet, delete_planet_by_id
 from src.rutas import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id

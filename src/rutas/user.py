@@ -125,3 +125,27 @@ def delete_user_by_id(user_id):
     db.session.commit()
     return jsonify("usuario eliminado exitosamente"), 200
 
+@app.route('/helloprotected', methods=['get']) #endpoint
+@jwt_required() #decorador que protege al endpoint
+def hello_protected(): #definición de la función
+    #claims = get_jwt()
+    print("id del usuario:", get_jwt_identity()) #imprimiendo la identidad del usuario que es el id
+    user = User.query.get(get_jwt_identity()) #búsqueda del id del usuario en la BD
+
+    #get_jwt() regresa un diccionario, y una propiedad importante es jti
+    jti=get_jwt()["jti"] 
+
+    #tokenBlocked = TokenBlockedList.query.filter_by(token=jti).first()
+    #cuando hay coincidencia tokenBloked es instancia de la clase TokenBlockedList
+    #cuando No hay coincidencia tokenBlocked = None
+
+    #if isinstance(tokenBlocked, TokenBlockedList):
+    #    return jsonify(msg="Acceso Denegado")
+
+    response_body={
+        "message":"token válido",
+        "user_id": user.id, #get_jwt_identity(),
+        "user_email": user.email
+    }
+
+    return jsonify(response_body), 200
