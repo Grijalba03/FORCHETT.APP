@@ -32,7 +32,7 @@ def signup():
         # for i in range(len(users)):
         #     if(users[i]['email']==new_user.serialize()['email']):
         #         raise APIException("El usuario ya existe" , status_code=400)
-        user = User.query.filter_by(email=body['email']).first()
+        user = User.query.filter_by(email=body['email'])#.first()
         if not user: 
              raise APIException("Usuario ya existe" , status_code=400)
                 
