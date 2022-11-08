@@ -149,3 +149,14 @@ def hello_protected(): #definición de la función
     }
 
     return jsonify(response_body), 200
+
+@app.route('/lista-usuarios', methods=['get'])
+@jwt_required()
+def allUsers():
+    users = User.query.all() #Objeto de SQLAlchemy
+    users = list(map(lambda item: item.serialize(), users))
+
+    response_body={
+        "lista": users
+    }
+    return jsonify(response_body), 200
