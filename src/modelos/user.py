@@ -1,5 +1,6 @@
 from ..db import db
 import os
+from .favorite_recipes import Favorite_Recipes
 
 
 class User(db.Model):
