@@ -1,6 +1,6 @@
 from ..db import db
 import os
-from .favorite_categories import Favorite_Categories
+
 
 # Tabla Categories
 class Categories(db.Model):
@@ -15,7 +15,7 @@ class Categories(db.Model):
     snacks = db.Column(db.String(250))
     vegetarian = db.Column(db.String(250))
     vegan = db.Column(db.String(250))
-    favorite_categories = db.relationship("Favorite_Categories", backref="categories")
+    
 
 #Characters serialize
     def serialize(self):
