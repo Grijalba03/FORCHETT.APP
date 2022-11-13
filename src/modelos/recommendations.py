@@ -5,16 +5,15 @@ import os
 # Tabla Pivote: Recommendations/ Favorites
 class Recommendations(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) #con el nombre de la tabla user y atributo id
-    username = db.Column(db.String(15), db.ForeignKey('user.username')) 
-    recipes_id = db.Column(db.Integer, db.ForeignKey('recipes.id'))
-    recipes_name = db.Column(db.String(150), db.ForeignKey('recipes.name'))
+    user_id = db.Column(db.Integer, unique=False, nullable=False) #con el nombre de la tabla user y atributo id
+    username = db.Column(db.String(15), unique=False, nullable=False)
+    recipe_id =  db.Column(db.Integer, unique=False, nullable=False)
+    recipe_name =  db.Column(db.String(100), unique=False, nullable=False)
 
     def serialize(self):
         return {
             "id": self.id,
-            "user_email": User.query.get(self.user_id).serialize()['email'],
-            "username": User.query.get(self.username).serialize()['username'],       
-            "recipes_id": Recipe.query.get(self.recipes_id).serialize()['recipe.id']       
-            "recipes_name": Recipe.query.get(self.recipes_name).serialize()['recipe.name']       
+            "username": self.username,  
+            "recipe_id": self.recipe.id,      
+            "recipe_name": self.recipe.name      
         }
