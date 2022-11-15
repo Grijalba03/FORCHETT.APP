@@ -11,6 +11,7 @@ class User(db.Model):
     username = db.Column(db.String(15), unique=False, nullable=False)
     dietaryPreferences = db.Column(db.String(100), unique=False, nullable=True)
     userTitle =  db.Column(db.String(100), unique=False, nullable=True)
+#probando sonido, probando....1234
 
     def __repr__(self):
         return '<User %r>' % self.email
