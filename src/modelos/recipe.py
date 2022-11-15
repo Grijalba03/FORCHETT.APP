@@ -8,13 +8,15 @@ class Recipe (db.Model):
     username = db.Column(db.String(100), nullable=False)
     name = db.Column(db.String(100), nullable=False)
     favorite_recipes = db.relationship("Favorite_Recipes", backref="recipe")
+    recipestatus =  db.Column(db.Boolean(), unique=False, nullable=False)
 
     #Recipe serialize
     def serialize(self):
         return {
             "id": self.id,
             "username": self.username,
-            "name":self.name
+            "name":self.name,
+            "recipe status": self.recipestatus
            
         }
 
