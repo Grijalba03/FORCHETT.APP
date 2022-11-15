@@ -24,6 +24,7 @@ class User(db.Model):
             "username": self.username, 
             "dietaryPreferences": self.dietaryPreferences,
             "userTitle": self.userTitle
+            #comentario
             # do not serialize the password, its a security breach
         }
 
