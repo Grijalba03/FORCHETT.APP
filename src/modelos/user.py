@@ -22,7 +22,7 @@ class User(db.Model):
             "email": self.email,
             "description": self.description,
             "username": self.username, 
-            "dietaryPreferences": self.dietaryPreferences,s
+            "dietaryPreferences": self.dietaryPreferences,
             "userTitle": self.userTitle
             #comentario
             # do not serialize the password, its a security breach
