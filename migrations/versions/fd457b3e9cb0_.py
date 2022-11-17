@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 97aaf1632b98
+Revision ID: fd457b3e9cb0
 Revises: 
-Create Date: 2022-11-13 00:09:17.087502
+Create Date: 2022-11-15 01:54:49.344713
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '97aaf1632b98'
+revision = 'fd457b3e9cb0'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -44,6 +44,7 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('recipestatus', sa.Boolean(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('recommendations',
@@ -71,8 +72,10 @@ def upgrade():
     sa.Column('username', sa.String(length=15), nullable=False),
     sa.Column('dietaryPreferences', sa.String(length=100), nullable=True),
     sa.Column('userTitle', sa.String(length=100), nullable=True),
+    sa.Column('userstatus', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('email')
+    sa.UniqueConstraint('email'),
+    sa.UniqueConstraint('username')
     )
     op.create_table('favorite__recipes',
     sa.Column('id', sa.Integer(), nullable=False),

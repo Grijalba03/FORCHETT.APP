@@ -21,11 +21,12 @@ def signup():
             raise APIException("email es inválido" , status_code=400)
         if body['password'] is None or body['password']=="":
             raise APIException("password es inválido" , status_code=400)     
-      
+        if body['username'] is None or body['username']=="":
+            raise APIException("username es inválido" , status_code=400)     
 
         password = bcrypt.generate_password_hash(body['password'], 10).decode("utf-8")
 
-        new_user = User(email=body['email'], password=password, is_active=True)
+        new_user = User(email=body['email'], password=password, username=body['username'], description="", dietaryPreferences="", userTitle="", userstatus=True)
         # users = User.query.all()
         # users = list(map( lambda user: user.serialize(), users))
 
@@ -90,7 +91,27 @@ def user_profile():
     if not foundtoken is None:
         raise APIException("Token inválido, o ya expiró", status_code=400)
     user = User.query.get(identidad) 
-    return jsonify({"Usuario" : user.email})
+    return jsonify({"Usuario" : user.email}) 
+
+#funcion para actualizar el perfil del usuario 
+@app.route('/user/<string:username>', methods=['PUT'])
+def put_user_by_username(username):
+    print(username)
+    body = request.get_json()
+    if username=="":
+        raise APIException("Id no puede ser igual a 0", status_code=400)  
+    if body['username'] is None:
+        raise APIException("El nombre de usuario no existe", status_code=400) 
+    user = User.query.filter_by(username = username).first()
+    print(user)
+    #validaciones
+    # if body is None:
+    #     raise APIException("Body está vacío" , status_code=400)
+    # #validamos si viene el campo name en el body o no (despues de hacer el request.get_json())
+    if not body['username'] is None:
+        user.username = body['username']
+    db.session.commit()     
+    return jsonify(user.serialize()), 200    
 
 #Función get para llamar a todos los usuarios de la base de datos
 @app.route('/users', methods=['GET'])
