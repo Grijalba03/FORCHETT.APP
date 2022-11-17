@@ -13,7 +13,6 @@ class User(db.Model):
     userTitle =  db.Column(db.String(100), unique=False, nullable=True)
     userstatus =  db.Column(db.Boolean(), unique=False, nullable=True)
 
-#probando sonido, probando....1234
 
     def __repr__(self):
         return '<User %r>' % self.email
