@@ -2,7 +2,7 @@ from ..db import db
 import os
 
 
-# Tabla Categories
+# Tabla Categories.
 class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     category_name = db.Column(db.String(250), nullable=False)
