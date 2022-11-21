@@ -40,7 +40,7 @@ from src.rutas import signup, user_login, user_logout, user_profile, get_user_by
 from src.rutas import get_people, get_people_by_id, create_new_person, put_people_by_id, busqueda_people, delete_character_by_id
 from src.rutas import get_planets, get_planet_by_id, create_new_planet, delete_planet_by_id
 from src.rutas import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id
-
+from src.rutas import get_categories
 
 
 # Handle/serialize errors like a JSON object

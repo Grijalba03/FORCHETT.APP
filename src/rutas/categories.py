@@ -8,7 +8,9 @@ from datetime import datetime
 import json
 
 
-#Función get para llamar a todas las categorias de la base de datos.
+
+#Función get para llamar a todas las categorias de la base de datos
+
 @app.route('/categories', methods=['GET'])
 def get_categories():
     categories = Categories.query.all()
