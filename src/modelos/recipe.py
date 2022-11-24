@@ -16,6 +16,7 @@ class Recipe (db.Model):
     ingredients =  db.Column(db.String(500), nullable=True)
     free_of =  db.Column(db.String(500), nullable=False)
     image = db.Column(db.String(300), nullable=False)
+    description = db.Column(db.String(300), nullable=False)
 
 
 
@@ -34,6 +35,8 @@ class Recipe (db.Model):
             "preparation": self.preparation,
             "ingredients": self.ingredients,
             "free_of": self.free_of,
-            "image": self.image
+            "image": self.image,
+            "description": self.description
+
         }
 
