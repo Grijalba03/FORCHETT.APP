@@ -3,3 +3,4 @@ from .people import create_new_person, put_people_by_id, busqueda_people, get_pe
 from .planet import get_planets, get_planet_by_id, create_new_planet, delete_planet_by_id
 from .vehicle import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id
 from .categories import get_categories
+from .recipes import get_recipes
