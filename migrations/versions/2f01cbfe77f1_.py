@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 0566a9c7c4b6
+Revision ID: 2f01cbfe77f1
 Revises: 
-Create Date: 2022-11-20 23:07:04.929716
+Create Date: 2022-11-24 02:50:18.054107
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '0566a9c7c4b6'
+revision = '2f01cbfe77f1'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -29,15 +29,21 @@ def upgrade():
     op.create_table('recipe',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=100), nullable=False),
-    sa.Column('status', sa.Boolean(), nullable=False),
+    sa.Column('status', sa.Boolean(), nullable=True),
+    sa.Column('category', sa.Integer(), nullable=False),
     sa.Column('rating', sa.Integer(), nullable=True),
-    sa.Column('title', sa.String(length=250), nullable=True),
-    sa.Column('nutritional_facts', sa.String(length=250), nullable=False),
-    sa.Column('information', sa.String(length=250), nullable=True),
-    sa.Column('preparation', sa.String(length=250), nullable=True),
-    sa.Column('ingredients', sa.String(length=500), nullable=True),
-    sa.Column('free_of', sa.String(length=500), nullable=False),
-    sa.Column('image', sa.String(length=300), nullable=False),
+    sa.Column('title', sa.String(length=250), nullable=False),
+    sa.Column('servings', sa.String(length=250), nullable=False),
+    sa.Column('prep', sa.String(length=250), nullable=False),
+    sa.Column('bake', sa.String(length=250), nullable=False),
+    sa.Column('protein', sa.String(length=250), nullable=True),
+    sa.Column('carbs', sa.String(length=250), nullable=True),
+    sa.Column('fat', sa.String(length=250), nullable=True),
+    sa.Column('preparation', sa.String(length=250), nullable=False),
+    sa.Column('ingredients', sa.String(length=500), nullable=False),
+    sa.Column('free_of', sa.String(length=500), nullable=True),
+    sa.Column('image', sa.String(length=300), nullable=True),
+    sa.Column('description', sa.String(length=300), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('recommendations',

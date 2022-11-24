@@ -41,6 +41,7 @@ from src.rutas import get_people, get_people_by_id, create_new_person, put_peopl
 from src.rutas import get_planets, get_planet_by_id, create_new_planet, delete_planet_by_id
 from src.rutas import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id
 from src.rutas import get_categories
+from src.rutas import get_recipes
 
 
 # Handle/serialize errors like a JSON object
