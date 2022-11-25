@@ -10,6 +10,7 @@ class Recipe (db.Model):
     status =  db.Column(db.Boolean(), unique=False, nullable=True)
     category = db.Column(db.Integer, unique=False, nullable=False)
     rating = db.Column(db.Integer, unique=False, nullable=True)
+    Image = db.Column(db.String(300), nullable=False)
     title =  db.Column(db.String(250), nullable=False)
     servings = db.Column(db.String(250), nullable=False)
     prep = db.Column(db.String(250), nullable=False)
@@ -20,8 +21,8 @@ class Recipe (db.Model):
     preparation = db.Column(db.String(250), nullable=False)
     ingredients =  db.Column(db.String(500), nullable=False)
     free_of =  db.Column(db.String(500), nullable=True)
-    image = db.Column(db.String(300), nullable=True)
     description = db.Column(db.String(300), nullable=False)
+
 
 
 

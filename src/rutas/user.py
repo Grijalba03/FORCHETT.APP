@@ -33,7 +33,7 @@ def signup():
         # for i in range(len(users)):
         #     if(users[i]['email']==new_user.serialize()['email']):
         #         raise APIException("El usuario ya existe" , status_code=400)
-        user = User.query.filter_by(email=body['email'])#.first()
+        user = User.query.filter_by(username=body['username'])#.first()
         if not user: 
              raise APIException("Usuario ya existe" , status_code=400)
                 
@@ -82,9 +82,9 @@ def user_logout():
     return jsonify({"Mensaje" : "Sesión cerrada exitosamente!"})
 
 #funcion profile con proteccion
-@app.route('/profile', methods=['POST'])#cualquier metodo vale
+@app.route('/vip', methods=['POST'])#cualquier metodo vale
 @jwt_required() #añadiendo proteccion con token
-def user_profile():
+def user_vip():
     identidad = get_jwt_identity() #almacenando el ID del usuario 
     jti = get_jwt()['jti']  #revisar status del token
     foundtoken = Blocked.query.filter_by(blocked_token=jti).first() #haciendo query del token segun el jti
