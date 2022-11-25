@@ -39,18 +39,17 @@ def signup():
 
         user = User.query.filter_by(username=body['username'])#.first()
         if not user: 
-             raise APIException("Usuario ya existe" , status_code=400)
-                
+             raise APIException("User already exists" , status_code=400)
         print(new_user)
         # print(new_user.serialize())
         db.session.add(new_user)
         db.session.commit()
-        return jsonify({"mensaje": "Usuario creado exitosamente"}), 201
+        return jsonify({"response": "User successfully created"}), 201
 
     except Exception as err:
         db.session.rollback()
         print(err)
-        return jsonify({"mensaje": "error al registrar usuario"}), 500
+        return jsonify({"response": "error registering user"}), 500
 
 
 # funcion login
@@ -100,6 +99,7 @@ def user_vip():
     identidad = get_jwt_identity() #almacenando el ID del usuario 
     jti = get_jwt()['jti']  #revisar status del token
     foundtoken = Blocked.query.filter_by(blocked_token=jti).first() #haciendo query del token segun el jti
+
     if not foundtoken is None:
         raise APIException("Token inválido, o ya expiró", status_code=400)
     user = User.query.get(identidad)
