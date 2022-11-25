@@ -25,6 +25,7 @@ class Recipe (db.Model):
 
 
 
+
     #Recipe serialize
     def serialize(self):
         return {
@@ -46,6 +47,5 @@ class Recipe (db.Model):
             "free_of": self.free_of,
             "image": self.image,
             "description": self.description
-
         }
 
