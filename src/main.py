@@ -42,6 +42,8 @@ from src.rutas import signup, user_login, user_logout, user_vip, get_user_by_id,
 # from src.rutas import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id
 from src.rutas import get_categories
 from src.rutas import get_profile_by_username
+from src.rutas import get_recipes
+
 
 
 # Handle/serialize errors like a JSON object

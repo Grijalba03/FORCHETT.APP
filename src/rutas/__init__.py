@@ -4,3 +4,6 @@ from .user import signup, user_login, user_logout, user_vip, get_user_by_id, del
 # from .vehicle import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id
 from .categories import get_categories
 from .userProfile import get_profile_by_username
+from .recipes import get_recipes
+
+
