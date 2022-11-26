@@ -1,7 +1,7 @@
 import os
 from ..main import request, jsonify, app, bcrypt
 from ..db import db
-from ..modelos import Categories 
+from ..modelos import Categories, User
 from flask import Flask, url_for
 from datetime import datetime
 import json 
