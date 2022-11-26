@@ -21,7 +21,6 @@ class Recipe (db.Model):
     preparation = db.Column(db.String(250), nullable=False)
     ingredients =  db.Column(db.String(500), nullable=False)
     free_of =  db.Column(db.String(500), nullable=True)
-    image = db.Column(db.String(300), nullable=True)
     description = db.Column(db.String(300), nullable=False)
 
 

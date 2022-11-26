@@ -45,6 +45,7 @@ from src.rutas import get_profile_by_username
 from src.rutas import get_recipes
 
 
+
 # Handle/serialize errors like a JSON object
 @app.errorhandler(APIException)
 def handle_invalid_usage(error):
