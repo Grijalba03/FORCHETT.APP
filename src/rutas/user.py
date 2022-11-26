@@ -138,21 +138,40 @@ def update_user_account(username):
     print("Username2: " + username)
     # Check user in DB
     username = User.query.filter_by(username=username).first()
+    
     # User validation in db
     if username == None:
         raise APIException("Error: Username does not exist", status_code=400)
     body = request.get_json()
+    # concatenate a string and a dictionary
+    bodystr = 'Body Res: '
+    body_msg = f'{bodystr} {body}'
+    print(body_msg)
     # Body Validation
     if body is None:
         raise APIException("Error: body is empty", status_code=400)
-    # Check for body if empty (request)
-    if not body['username'] is None:
-        username.name = body['username']
-    
-
-    #db.session.commit()
+    # Check if username body is empty
+    if body['username'] is not "":
+        username.username = body['username']
+        print("update db username")
+        db.session.commit()
+    # Check if dietarypreferences body is empty
+    if body['dietaryPreferences'] is not "":
+        dietarypreferences = body['dietaryPreferences']
+        print(dietarypreferences)
+        dietaryPreferences = User.query.filter_by(dietaryPreferences=dietarypreferences).first()
+        # dietarypreferences.dietaryPreferences = dietaryPreferences
+        dietaryPreferences.update(dietaryPreferences=dietarypreferences)
+        
+        print("update db dietarypreferences")
+        db.session.commit()
+    # Check if userTitle body is empty
+    # if body['usertitle'] is not "":
+    #     username.usertitle = body['usertitle']
+    #     print("update db usertitle")
+    #     db.session.commit()
     # Response
-    return jsonify({"hello": "testing"}), 200
+    return jsonify({"response": "username updated successfully"}), 200
 
 
 # Función get para llamar a todos los usuarios de la base de datos

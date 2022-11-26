@@ -13,5 +13,9 @@ def get_home_data():
 
     recipes = Recipe.query.all()
     recipes = list(map( lambda recipe: recipe.serialize(), recipes)) 
-    
-    return jsonify(categories + recipes), 200
+    dictss = {
+        "categories": categories,
+        "recepie": recipes
+    }
+
+    return jsonify(dictss), 200
