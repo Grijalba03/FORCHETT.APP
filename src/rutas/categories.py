@@ -9,7 +9,7 @@ import json
 
 
 
-#Función get para llamar a todas las categorias de la base de datos
+#GET functin to call all categories from the DB
 
 @app.route('/categories', methods=['GET'])
 def get_categories():

@@ -15,7 +15,11 @@ def get_profile_by_username(username):
         raise APIException("username no existe", status_code=400)  
     if body['username'] is None:
         raise APIException("El nombre de usuario no existe", status_code=400) 
-    user = User.query.filter_by(username = username).first()
+    user = User.query.filter_by(username = username).first() 
+
+
+
+    
     # print(user)
     #validaciones
     # if body is None:
