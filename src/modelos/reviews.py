@@ -19,10 +19,10 @@ class Reviews(db.Model):
         return {
             "id": self.id,
             "username": self.username,
-            "recipe_id": self.recipe_id,
-            "recipe_name": self.recipe_name,
-            "rating_experience": self.rating_experience, 
-            "rating_recipe": self.rating_recipe, 
-            "review": self.review, 
-            "review_image": self.review_image
+            # "recipe_id": self.recipe_id,
+            # "recipe_name": self.recipe_name,
+            # "rating_experience": self.rating_experience, 
+            # "rating_recipe": self.rating_recipe, 
+            # "review": self.review, 
+            # "review_image": self.review_image
         }

@@ -13,12 +13,12 @@ def serialize(self):
             "id": self.id, 
             "username":self.username, 
             "user_id": User.query.get(self.user_id).serialize()['id'],
-            "userImage":User.query.get(self.user_id).serialize()['userImage'],
-            "userFacebook":User.query.get(self.user_id).serialize()['userFacebook'],
-            "userTwitter":User.query.get(self.user_id).serialize()['userTwitter'],
-            "usreInstagram":User.query.get(self.user_id).serialize()['userInstagram'],
-            "userYoutube":User.query.get(self.user_id).serialize()['userYoutube'], 
-            "userTitle":User.query.get(self.user_id).serialize()['userTitle'],
+            "Image":User.query.get(self.user_id).serialize()['Image'],
+            "Facebook":User.query.get(self.user_id).serialize()['Facebook'],
+            "Twitter":User.query.get(self.user_id).serialize()['Twitter'],
+            "Instagram":User.query.get(self.user_id).serialize()['Instagram'],
+            "Youtube":User.query.get(self.user_id).serialize()['Youtube'], 
+            "Title":User.query.get(self.user_id).serialize()['Title'],
             "dietaryPreferences":User.query.get(self.serialize)['dietaryPreferences']
         }
 
