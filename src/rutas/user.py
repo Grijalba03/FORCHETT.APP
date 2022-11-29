@@ -151,12 +151,12 @@ def update_user_account(username):
     if body is None:
         raise APIException("Error: body is empty", status_code=400)
     # Check if username body is empty
-    if body['username'] is not "":
+    if body['username'] != "":
         username.username = body['username']
         print("update db username")
         db.session.commit()
     # Check if dietarypreferences body is empty
-    if body['dietaryPreferences'] is not "":
+    if body['dietaryPreferences'] != "":
         dietarypreferences = body['dietaryPreferences']
         print(dietarypreferences)
         dietaryPreferences = User.query.filter_by(dietaryPreferences=dietarypreferences).first()
