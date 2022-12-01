@@ -254,12 +254,12 @@ def allUsers():
 
 
 
-@app.route('/account/<string:username>', methods=['PUT'])#cualquier metodo vale
-@jwt_required() #añadiendo proteccion con token
+@app.route('/account/<string:username>', methods=['PUT'])
+@jwt_required() 
 def update_user_account(username):
-    identidad = get_jwt_identity() #almacenando el ID del usuario 
-    jti = get_jwt()['jti']  #revisar status del token
-    foundtoken = Blocked.query.filter_by(blocked_token=jti).first() #haciendo query del token segun el jti
+    identidad = get_jwt_identity()
+    jti = get_jwt()['jti']
+    foundtoken = Blocked.query.filter_by(blocked_token=jti).first()
 
     if not foundtoken is None:
         raise APIException("Token inválido, o ya expiró", status_code=400)
@@ -288,3 +288,52 @@ def update_user_account(username):
 
     db.session.commit()
     return jsonify({"Result": "updated"})
+
+
+
+@app.route('/account/password/<string:username>', methods=['PUT'])
+@jwt_required() 
+def update_user_account_password(username):
+    userId = get_jwt_identity()
+    jti = get_jwt()['jti']
+    foundtoken = Blocked.query.filter_by(blocked_token=jti).first()
+
+    if not foundtoken is None:
+        raise APIException("Token has already expired or invalid.", status_code=400)
+    user = User.query.get(userId)
+
+    body = request.get_json()
+    try:
+        if body is None:
+            raise APIException("Error: body is empty", status_code=400)
+        
+        if body['current-password'] is None or body['current-password'] == "":
+            raise APIException("Current password field cannot be empty.", status_code=400)
+        print("current pass: ", body['current-password'])
+        if body['new-password'] is None or body['new-password'] == "":
+            raise APIException("New password field cannot be empty.", status_code=400)
+        print("new pass: ", body['new-password'])
+        if body['confirm-password'] is None or body['confirm-password'] == "":
+            raise APIException("Confirm password field cannot be empty.", status_code=400)
+        print("confirm pass: ", body['confirm-password'])
+        if str(body['new-password']) != str(body['confirm-password']) :
+            raise APIException('New Password and Confirm password should be the same.')
+
+        genNewPassword = bcrypt.generate_password_hash(
+            body['new-password'], 10).decode("utf-8")
+
+        newPass = User(password=genNewPassword)
+
+        print("genNew ", genNewPassword)
+        user = User.query.get(get_jwt_identity())
+        user.password = genNewPassword
+        print("pass ", user)
+        db.session.commit()
+
+        return jsonify({"Result": "Password updated."})
+    
+    except Exception as err:
+        db.session.rollback()
+        print(err)
+        return jsonify({"response": "error updating user password"}), 500
+    
