@@ -29,7 +29,7 @@ def signup():
             body['password'], 10).decode("utf-8")
 
         new_user = User(email=body['email'], password=password, username=body['username'],
-                        description="", dietaryPreferences="", userTitle="", userstatus=True)
+                        description="", dietaryPreferences="", title="", status=True)
         # users = User.query.all()
         # users = list(map( lambda user: user.serialize(), users))
 
