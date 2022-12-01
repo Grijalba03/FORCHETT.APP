@@ -1,27 +1,27 @@
 from ..db import db
+from .user import User
 
 
-class userProfile (db.Model):
+class UserProfile (db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id= db.Column(db.Integer, db.ForeignKey('user.id'))
    
     
 
 
-def serialize(self): 
+    def serialize(self): 
+        user = User.query.get(self.user_id).serialize()
         return { 
             "id": self.id, 
             "username":self.username, 
             "user_id": User.query.get(self.user_id).serialize()['id'],
-            "Image":User.query.get(self.user_id).serialize()['Image'],
-            "Facebook":User.query.get(self.user_id).serialize()['Facebook'],
-            "Twitter":User.query.get(self.user_id).serialize()['Twitter'],
-            "Instagram":User.query.get(self.user_id).serialize()['Instagram'],
-            "Youtube":User.query.get(self.user_id).serialize()['Youtube'], 
-            "Title":User.query.get(self.user_id).serialize()['Title'],
-            "dietaryPreferences":User.query.get(self.serialize)['dietaryPreferences']
+            "image":user['image'],
+            "facebook":user['facebook'],
+            "twitter":user['twitter'],
+            "instagram":user['instagram'],
+            "youtube":user['youtube'], 
+            "title":user['title'],
+            "dietaryPreferences":user['dietaryPreferences']
         }
-
-        
      
 
