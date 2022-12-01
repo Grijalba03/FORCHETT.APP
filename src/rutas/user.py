@@ -29,7 +29,7 @@ def signup():
             body['password'], 10).decode("utf-8")
 
         new_user = User(email=body['email'], password=password, username=body['username'],
-                        description="", dietaryPreferences="", userTitle="", userstatus=True)
+                        description="", dietaryPreferences="", title="", status=True)
         # users = User.query.all()
         # users = list(map( lambda user: user.serialize(), users))
 
@@ -128,50 +128,50 @@ def user_vip():
 
 
 # Endpoint Update User Account data
-@app.route('/account/<string:username>', methods=['PUT'])
-def update_user_account(username):
-    print("Username: " + username)
-    # User validation if empty
-    if username == "":
-        raise APIException(
-            "Error: Username field cannot be empy", status_code=400)
-    print("Username2: " + username)
-    # Check user in DB
-    username = User.query.filter_by(username=username).first()
+# @app.route('/account/<string:username>', methods=['PUT'])
+# def update_user_account(username):
+#     print("Username: " + username)
+#     # User validation if empty
+#     if username == "":
+#         raise APIException(
+#             "Error: Username field cannot be empy", status_code=400)
+#     print("Username2: " + username)
+#     # Check user in DB
+#     username = User.query.filter_by(username=username).first()
     
-    # User validation in db
-    if username == None:
-        raise APIException("Error: Username does not exist", status_code=400)
-    body = request.get_json()
-    # concatenate a string and a dictionary
-    bodystr = 'Body Res: '
-    body_msg = f'{bodystr} {body}'
-    print(body_msg)
-    # Body Validation
-    if body is None:
-        raise APIException("Error: body is empty", status_code=400)
-    # Check if username body is empty
-    if body['username'] != "":
-        username.username = body['username']
-        print("update db username")
-        db.session.commit()
-    # Check if dietarypreferences body is empty
-    if body['dietaryPreferences'] != "":
-        dietarypreferences = body['dietaryPreferences']
-        print(dietarypreferences)
-        dietaryPreferences = User.query.filter_by(dietaryPreferences=dietarypreferences).first()
-        # dietarypreferences.dietaryPreferences = dietaryPreferences
-        dietaryPreferences.update(dietaryPreferences=dietarypreferences)
+#     # User validation in db
+#     if username == None:
+#         raise APIException("Error: Username does not exist", status_code=400)
+#     body = request.get_json()
+#     # concatenate a string and a dictionary
+#     bodystr = 'Body Res: '
+#     body_msg = f'{bodystr} {body}'
+#     print(body_msg)
+#     # Body Validation
+#     if body is None:
+#         raise APIException("Error: body is empty", status_code=400)
+#     # Check if username body is empty
+#     if body['username'] != "":
+#         username.username = body['username']
+#         print("update db username")
+#         db.session.commit()
+#     # Check if dietarypreferences body is empty
+#     if body['dietaryPreferences'] != "":
+#         dietarypreferences = body['dietaryPreferences']
+#         print(dietarypreferences)
+#         dietaryPreferences = User.query.filter_by(dietaryPreferences=dietarypreferences).first()
+#         # dietarypreferences.dietaryPreferences = dietaryPreferences
+#         dietaryPreferences.update(dietaryPreferences=dietarypreferences)
         
-        print("update db dietarypreferences")
-        db.session.commit()
-    # Check if userTitle body is empty
-    # if body['usertitle'] is not "":
-    #     username.usertitle = body['usertitle']
-    #     print("update db usertitle")
-    #     db.session.commit()
-    # Response
-    return jsonify({"response": "username updated successfully"}), 200
+#         print("update db dietarypreferences")
+#         db.session.commit()
+#     # Check if userTitle body is empty
+#     # if body['usertitle'] is not "":
+#     #     username.usertitle = body['usertitle']
+#     #     print("update db usertitle")
+#     #     db.session.commit()
+#     # Response
+#     return jsonify({"response": "username updated successfully"}), 200
 
 
 # Función get para llamar a todos los usuarios de la base de datos
@@ -250,3 +250,41 @@ def allUsers():
         "lista": users
     }
     return jsonify(response_body), 200
+
+
+
+
+@app.route('/account/<string:username>', methods=['PUT'])#cualquier metodo vale
+@jwt_required() #añadiendo proteccion con token
+def update_user_account(username):
+    identidad = get_jwt_identity() #almacenando el ID del usuario 
+    jti = get_jwt()['jti']  #revisar status del token
+    foundtoken = Blocked.query.filter_by(blocked_token=jti).first() #haciendo query del token segun el jti
+
+    if not foundtoken is None:
+        raise APIException("Token inválido, o ya expiró", status_code=400)
+    user = User.query.get(identidad)
+
+    body = request.get_json()
+    if body is None:
+        raise APIException("Error: body is empty", status_code=400)
+    
+    if body['title'] != "":
+        title = body['title']
+        facebook =  body['facebook']
+        twitter =  body['twitter']
+        instagram =  body['instagram']
+        youtube =  body['youtube']
+        dietaryPreferences =  body['dietaryPreferences']
+        # print(userTitle)
+
+
+    user.title = title
+    user.facebook = facebook
+    user.twitter = twitter
+    user.instagram = instagram
+    user.youtube = youtube
+    user.dietaryPreferences = dietaryPreferences
+
+    db.session.commit()
+    return jsonify({"Result": "updated"})
