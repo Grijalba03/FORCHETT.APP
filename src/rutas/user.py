@@ -105,74 +105,6 @@ def user_vip():
     user = User.query.get(identidad)
     return jsonify({"Usuario": user.email})
 
-# funcion para actualizar el perfil del usuario
-# @app.route('/user/<string:username>', methods=['PUT'])
-# def put_user_by_username(username):
-#     print(username)
-#     body = request.get_json()
-#     if username=="":
-#         raise APIException("Id no puede ser igual a 0", status_code=400)
-#     if body['username'] is None:
-#         raise APIException("El nombre de usuario no existe", status_code=400)
-#     user = User.query.filter_by(username = username).first()
-#     print(user)
-#     #validaciones
-#     # if body is None:
-#     #     raise APIException("Body está vacío" , status_code=400)
-#     # #validamos si viene el campo name en el body o no (despues de hacer el request.get_json())
-#     if not body['username'] is None:
-#         user.username = body['username']
-#     db.session.commit()
-#     return jsonify(user.serialize()), 200
-
-
-
-# Endpoint Update User Account data
-# @app.route('/account/<string:username>', methods=['PUT'])
-# def update_user_account(username):
-#     print("Username: " + username)
-#     # User validation if empty
-#     if username == "":
-#         raise APIException(
-#             "Error: Username field cannot be empy", status_code=400)
-#     print("Username2: " + username)
-#     # Check user in DB
-#     username = User.query.filter_by(username=username).first()
-    
-#     # User validation in db
-#     if username == None:
-#         raise APIException("Error: Username does not exist", status_code=400)
-#     body = request.get_json()
-#     # concatenate a string and a dictionary
-#     bodystr = 'Body Res: '
-#     body_msg = f'{bodystr} {body}'
-#     print(body_msg)
-#     # Body Validation
-#     if body is None:
-#         raise APIException("Error: body is empty", status_code=400)
-#     # Check if username body is empty
-#     if body['username'] != "":
-#         username.username = body['username']
-#         print("update db username")
-#         db.session.commit()
-#     # Check if dietarypreferences body is empty
-#     if body['dietaryPreferences'] != "":
-#         dietarypreferences = body['dietaryPreferences']
-#         print(dietarypreferences)
-#         dietaryPreferences = User.query.filter_by(dietaryPreferences=dietarypreferences).first()
-#         # dietarypreferences.dietaryPreferences = dietaryPreferences
-#         dietaryPreferences.update(dietaryPreferences=dietarypreferences)
-        
-#         print("update db dietarypreferences")
-#         db.session.commit()
-#     # Check if userTitle body is empty
-#     # if body['usertitle'] is not "":
-#     #     username.usertitle = body['usertitle']
-#     #     print("update db usertitle")
-#     #     db.session.commit()
-#     # Response
-#     return jsonify({"response": "username updated successfully"}), 200
-
 
 # Función get para llamar a todos los usuarios de la base de datos
 @app.route('/users', methods=['GET'])
@@ -290,7 +222,7 @@ def update_user_account(username):
     return jsonify({"Result": "updated"})
 
 
-
+# Usser Account -> Change password
 @app.route('/account/password/<string:username>', methods=['PUT'])
 @jwt_required() 
 def update_user_account_password(username):
@@ -301,12 +233,11 @@ def update_user_account_password(username):
     if not foundtoken is None:
         raise APIException("Token has already expired or invalid.", status_code=400)
     user = User.query.get(userId)
-
     body = request.get_json()
+
     try:
         if body is None:
             raise APIException("Error: body is empty", status_code=400)
-        
         if body['current-password'] is None or body['current-password'] == "":
             raise APIException("Current password field cannot be empty.", status_code=400)
         print("current pass: ", body['current-password'])
@@ -321,15 +252,12 @@ def update_user_account_password(username):
 
         genNewPassword = bcrypt.generate_password_hash(
             body['new-password'], 10).decode("utf-8")
-
         newPass = User(password=genNewPassword)
-
         print("genNew ", genNewPassword)
         user = User.query.get(get_jwt_identity())
         user.password = genNewPassword
         print("pass ", user)
         db.session.commit()
-
         return jsonify({"Result": "Password updated."})
     
     except Exception as err:
