@@ -27,23 +27,21 @@ def create_new_recipe():
     if body['title'] is None or body['title']=="":
         raise APIException("Name cannot be empty!" , status_code=400)
     if body['category'] is None or body['category']=="":
-        bake = ""
+        raise APIException("Select a category" , status_code=400)
     if body['prep'] is None or body['prep']=="":
-        prep = ""
+        raise APIException("prep cannot be empty!" , status_code=400)
     if body['preparation'] is None or body['preparation']=="":
-        preparation = ""
+        raise APIException("preparation cannot be empty!" , status_code=400)
     if body['ingredients'] is None or body['ingredients']=="":
-        ingredients = ""
+        raise APIException("ingredients cannot be empty!" , status_code=400)
     if body['description'] is None or body['description']=="":
-        description = ""
+        raise APIException("description cannot be empty!" , status_code=400)
     if body['image'] is None or body['image']=="":
         image = ""
     if body['bake'] is None or body['bake']=="":
         bake = ""
 
-
-
-    new_recipe = Recipe(username=userName, category=body['category'], title=body['title'], servings=servings, 
+    new_recipe = Recipe(username=userName, category=body['category'], title=body['title'], servings=body['servings'], 
     prep=body['prep'], bake=body['bake'], preparation=body['preparation'], ingredients=body['ingredients'], 
     description=body['description'], image=body['image'])
 
