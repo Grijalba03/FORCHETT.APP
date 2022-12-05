@@ -26,4 +26,4 @@ def get_recipe_by_id(recipe_id):
     recipe = Recipe.query.get(recipe_id)
     if recipe == None:
         raise APIException("Recipe not found", status_code=400)  
-    return jsonify(planet.serialize()), 200
+    return jsonify(recipe.serialize()), 200
