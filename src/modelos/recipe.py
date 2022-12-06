@@ -1,6 +1,7 @@
 from ..db import db
 import os
 from .favorite_recipes import Favorite_Recipes
+from .categories import Categories
 
 #Recipe Table
 class Recipe (db.Model):
@@ -35,6 +36,7 @@ class Recipe (db.Model):
             "favorite_recipes":self.favorite_recipes,
             "status": self.status,
             "category": self.category,
+            "category_name":Categories.query.get(self.category).serialize()['category_name'],
             "rating": self.rating,
             "title": self.title,
             "servings": self.servings,
