@@ -10,11 +10,11 @@ class Recipe (db.Model):
     status =  db.Column(db.Boolean(), unique=False, nullable=True)
     category = db.Column(db.Integer, unique=False, nullable=False)
     rating = db.Column(db.Integer, unique=False, nullable=True)
-    image = db.Column(db.String(300), nullable=False)
+    image = db.Column(db.String(300), nullable=True)
     title =  db.Column(db.String(250), nullable=False)
     servings = db.Column(db.String(250), nullable=False)
     prep = db.Column(db.String(250), nullable=False)
-    bake = db.Column(db.String(250), nullable=False)
+    bake = db.Column(db.String(250), nullable=True) #If its a drink we dont need it
     protein =  db.Column(db.String(250), nullable=True)
     carbs =  db.Column(db.String(250), nullable=True)
     fat =  db.Column(db.String(250), nullable=True)
