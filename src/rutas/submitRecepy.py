@@ -22,7 +22,7 @@ def create_new_recipe():
     body = request.get_json()
 
     if body is None:
-        raise APIException("Body está vacío" , status_code=400)
+        raise APIException("Empty Body" , status_code=400)
     
     if body['title'] is None or body['title']=="":
         raise APIException("Name cannot be empty!" , status_code=400)
@@ -50,11 +50,11 @@ def create_new_recipe():
 
     for i in range(len(recipes)):
         if(recipes[i]['title']==new_recipe.serialize()['title']):
-            raise APIException("found on db" , status_code=400)
+            raise APIException("There is already a recipe with the same title." , status_code=400)
             
     print(new_recipe)
     #print(new_user.serialize())
     db.session.add(new_recipe) 
     db.session.commit()
     
-    return jsonify({"mensaje": "win :)"}), 201
+    return jsonify({"Result": "The recipe was sent successfully."}), 201
