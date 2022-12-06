@@ -11,8 +11,10 @@ class UserProfile (db.Model):
 
     def serialize(self): 
         user = User.query.get(self.user_id).serialize()
+
         return { 
             "id": self.id, 
+           
             "username":self.username, 
             "user_id": User.query.get(self.user_id).serialize()['id'],
             "image":user['image'],

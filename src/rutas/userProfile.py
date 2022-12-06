@@ -11,18 +11,14 @@ from ..utils import APIException
 @app.route('/profile/<string:username>', methods=['GET'])
 @jwt_required() 
 def get_profile_by_username(username):
-    # print("username" ,username())
+    
    
     if username=="":
         raise APIException("username cannot be empty", status_code=400)  
     user = User.query.filter_by(username = username).first() 
     print(user)
     
-    #validaciones
-    # if body is None:
-    #  raise APIException("body is empty" , status_code=400)
-    # if not body['username'] is None:
-    # user.username = body['username'] 
+
     userInfo = { "username":user.username, 
                 "image":user.image,
                 "title":user.title,

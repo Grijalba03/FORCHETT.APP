@@ -1,5 +1,6 @@
 from ..db import db
 import os
+from .recipe import Recipe
 
 
 
@@ -18,7 +19,7 @@ class Favorite_Recipes(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "recipe_name":Recipe.query.get(self.recipe_name).serialize()['name'],
+            "recipe_title":Recipe.query.get(self.recipe_title).serialize()['title'],
             "recipe_id":Recipe.query.get(self.recipe_id).serialize()['id'] 
             
         }

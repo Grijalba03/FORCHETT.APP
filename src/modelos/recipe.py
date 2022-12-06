@@ -1,6 +1,6 @@
 from ..db import db
 import os
-from .favorite_recipes import Favorite_Recipes
+# from .favorite_recipes import Favorite_Recipes
 
 #Recipe Table
 class Recipe (db.Model):
