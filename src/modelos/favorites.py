@@ -1,12 +1,13 @@
 from ..db import db
 import os
+from .recipe import Recipe
 
 
 
 
 # Pivot Table: Recipe/ Favorites    
 
-class Favorite_Recipes(db.Model):
+class Favorites(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     #we use the table name: user and ID attribute
     user_id = db.Column(db.Integer, db.ForeignKey('user.id')) #we use the table name: user and ID attribute
@@ -18,7 +19,7 @@ class Favorite_Recipes(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "recipe_name":Recipe.query.get(self.recipe_name).serialize()['name'],
+            "recipe_title":Recipe.query.get(self.recipe_title).serialize()['title'],
             "recipe_id":Recipe.query.get(self.recipe_id).serialize()['id'] 
             
         }
