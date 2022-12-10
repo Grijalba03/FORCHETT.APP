@@ -1,6 +1,9 @@
 from ..db import db
 import os
 # from .favorite_recipes import Favorite_Recipes
+from .favorite_recipes import Favorite_Recipes
+from .categories import Categories
+
 
 #Recipe Table
 class Recipe (db.Model):
@@ -9,11 +12,11 @@ class Recipe (db.Model):
     status =  db.Column(db.Boolean(), unique=False, nullable=True)
     category = db.Column(db.Integer, unique=False, nullable=False)
     rating = db.Column(db.Integer, unique=False, nullable=True)
-    image = db.Column(db.String(300), nullable=False)
+    image = db.Column(db.String(300), nullable=True)
     title =  db.Column(db.String(250), nullable=False)
     servings = db.Column(db.String(250), nullable=False)
     prep = db.Column(db.String(250), nullable=False)
-    bake = db.Column(db.String(250), nullable=False)
+    bake = db.Column(db.String(250), nullable=True) #If its a drink we dont need it
     protein =  db.Column(db.String(250), nullable=True)
     carbs =  db.Column(db.String(250), nullable=True)
     fat =  db.Column(db.String(250), nullable=True)
@@ -35,6 +38,7 @@ class Recipe (db.Model):
             "favorite_recipes":self.favorite_recipes,
             "status": self.status,
             "category": self.category,
+            "category_name":Categories.query.get(self.category).serialize()['category_name'],
             "rating": self.rating,
             "title": self.title,
             "servings": self.servings,

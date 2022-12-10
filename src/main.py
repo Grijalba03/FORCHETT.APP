@@ -40,9 +40,9 @@ from src.rutas import signup, user_login, user_logout, user_vip, get_user_by_id,
 # from src.rutas import get_people, get_people_by_id, create_new_person, put_people_by_id, busqueda_people, delete_character_by_id
 # from src.rutas import get_planets, get_planet_by_id, create_new_planet, delete_planet_by_id
 # from src.rutas import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id
-from src.rutas import get_categories
+from src.rutas import get_categories, get_category_by_id
 from src.rutas import get_profile_by_username
-from src.rutas import get_recipes
+from src.rutas import get_recipes, get_recipe_by_id
 
 
 

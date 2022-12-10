@@ -1,7 +1,6 @@
 from ..db import db
 import os
 
-
 # Tabla Categories.
 class Categories(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -11,9 +10,11 @@ class Categories(db.Model):
 
 #Characters serialize
     def serialize(self):
+
         return {
             "id": self.id,
             "category_name": self.category_name,
-            "recipe_id": self.recipe_id
+            "recipe_id": self.recipe_id,
+            # "found": found
         }
 
