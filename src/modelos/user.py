@@ -1,6 +1,6 @@
 from ..db import db
 import os
-from .favorites import Favorite_Recipes
+# from .favorites import Favorites
 # from .userProfile import UserProfile
 
 
@@ -20,6 +20,8 @@ class User(db.Model):
     youtube = db.Column(db.String(100),unique=False, nullable=True)
     # userProfile_id= db.Column(db.Integer, db.ForeignKey('userprofile.id'))
     userProfile = db.relationship("UserProfile", backref="user")
+    favorites = db.relationship("Favorites", backref="user")
+    recipe = db.relationship("Recipe", backref="user")
 
 
 
@@ -40,7 +42,8 @@ class User(db.Model):
             "instagram": self.instagram,
             "youtube": self.youtube,
             "image": self.image,
-            "userProfile": self.userProfile
+            "userProfile": self.userProfile,
+            "favorites": self.favorites
             #comentario
             # do not serialize the password, its a security breach
         }

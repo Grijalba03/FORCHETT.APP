@@ -32,7 +32,7 @@ CORS(app)
 setup_admin(app)
 
 #####  Importar Modelos  ####
-from src.modelos import Blocked, User, UserProfile, Recipe, Favorite_Recipes, Categories, Recommendations, Reviews
+from src.modelos import Blocked, User, UserProfile, Recipe, Favorites, Categories, Recommendations, Reviews
 
 
 ##### Importar las Rutas ####
@@ -43,6 +43,7 @@ from src.rutas import signup, user_login, user_logout, user_vip, get_user_by_id,
 from src.rutas import get_categories, get_category_by_id
 from src.rutas import get_profile_by_username
 from src.rutas import get_recipes, get_recipe_by_id
+from src.rutas import get_favorites
 
 
 

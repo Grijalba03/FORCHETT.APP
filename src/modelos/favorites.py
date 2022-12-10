@@ -1,6 +1,7 @@
 from ..db import db
 import os
 from .recipe import Recipe
+from .user import User
 
 
 
@@ -14,12 +15,16 @@ class Favorites(db.Model):
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'))
    
    
+   
 
     #serialize
     def serialize(self):
         return {
             "id": self.id,
             "recipe_title":Recipe.query.get(self.recipe_title).serialize()['title'],
-            "recipe_id":Recipe.query.get(self.recipe_id).serialize()['id'] 
+            "recipe_id":Recipe.query.get(self.recipe_id).serialize()['id'], 
+            "username": User.query.get(self.user_username).serialize()['username'],
+            "image": User.query.get(self.user_image).serialize()['image'],
+             
             
         }
