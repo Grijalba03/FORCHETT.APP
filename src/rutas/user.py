@@ -251,8 +251,9 @@ def update_user_account_password(username):
             raise APIException("Confirm password field cannot be empty.", status_code=400)
         print("confirm pass: ", body['confirm-password'])
         if str(body['new-password']) != str(body['confirm-password']) :
-            raise APIException('New Password and Confirm password should be the same.')
+            raise APIException('New Password and Confirm password should be the same.', status_code=400)
 
+        print('body', body)
         genNewPassword = bcrypt.generate_password_hash(
             body['new-password'], 10).decode("utf-8")
         newPass = User(password=genNewPassword)

@@ -31,12 +31,7 @@ def get_profile_by_username(username):
                 "instagram":user.instagram,
                 "youtube":user.youtube,
                 "twitter":user.twitter
-    } 
-     
-   
-    
-           
-         
+    }      
     return jsonify({userInfo}), 200   
 
    

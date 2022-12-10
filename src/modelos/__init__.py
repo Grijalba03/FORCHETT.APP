@@ -6,4 +6,6 @@ from .categories import Categories
 from .recommendations import Recommendations
 from .reviews import Reviews
 from .userProfile import UserProfile
+from .ingredientsList import IngredientList
+
 

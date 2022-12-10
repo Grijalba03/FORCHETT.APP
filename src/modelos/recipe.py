@@ -2,6 +2,7 @@ from ..db import db
 import os
 from .favorite_recipes import Favorite_Recipes
 from .categories import Categories
+from .ingredientsList import IngredientList
 
 #Recipe Table
 class Recipe (db.Model):
@@ -19,7 +20,8 @@ class Recipe (db.Model):
     carbs =  db.Column(db.String(250), nullable=True)
     fat =  db.Column(db.String(250), nullable=True)
     preparation = db.Column(db.String(250), nullable=False)
-    ingredients =  db.Column(db.String(500), nullable=False)
+    # ingredients =  db.Column(db.String(500), nullable=False)
+    ingredients = db.relationship("IngredientList", backref="recipe")
     free_of =  db.Column(db.String(500), nullable=True)
     description = db.Column(db.String(300), nullable=False)
     favorite_recipes = db.relationship("Favorite_Recipes", backref="recipe")
@@ -36,7 +38,7 @@ class Recipe (db.Model):
             "favorite_recipes":self.favorite_recipes,
             "status": self.status,
             "category": self.category,
-            "category_name":Categories.query.get(self.category).serialize()['category_name'],
+            #"category_name":Categories.query.get(self.category).serialize()['category_name'],
             "rating": self.rating,
             "title": self.title,
             "servings": self.servings,
@@ -46,7 +48,10 @@ class Recipe (db.Model):
             "carbs": self.carbs,
             "fat": self.fat,
             "preparation": self.preparation,
-            "ingredients": self.ingredients,
+            #"ingredients":self.ingredients,
+            #"ingredients": ingredients.serialize(),
+            "ingredients":IngredientList.query.get(self.ingredients).serialize()['ingredientsItems'],
+            #"ingredients": ingredients['dietaryPreferences'],
             "free_of": self.free_of,
             "image": self.image,
             "description": self.description
