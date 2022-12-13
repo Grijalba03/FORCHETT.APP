@@ -29,13 +29,15 @@ def create_new_recipe():
     if body['category'] is None or body['category']=="":
         raise APIException("Select a category" , status_code=400)
     if body['prep'] is None or body['prep']=="":
-        raise APIException("prep cannot be empty!" , status_code=400)
+        raise APIException("prep time cannot be empty!" , status_code=400)
     if body['preparation'] is None or body['preparation']=="":
         raise APIException("preparation cannot be empty!" , status_code=400)
     if body['ingredients'] is None or body['ingredients']=="":
         raise APIException("ingredients cannot be empty!" , status_code=400)
     if body['description'] is None or body['description']=="":
         raise APIException("description cannot be empty!" , status_code=400)
+    if body['servings'] is None or body['servings']=="":
+        raise APIException("servings cannot be empty!" , status_code=400)
     if body['image'] is None or body['image']=="":
         image = ""
     if body['bake'] is None or body['bake']=="":
