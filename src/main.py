@@ -43,7 +43,7 @@ from src.rutas import signup, user_login, user_logout, user_vip, get_user_by_id,
 from src.rutas import get_categories, get_category_by_id
 from src.rutas import get_profile_by_username
 from src.rutas import get_recipes, get_recipe_by_id
-from src.rutas import get_favorites
+from src.rutas import get_favorites, adding_favorites
 
 
 

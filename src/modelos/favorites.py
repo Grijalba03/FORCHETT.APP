@@ -21,7 +21,7 @@ class Favorites(db.Model):
     def serialize(self):
         return {
             "id": self.id,
-            "recipe_title":Recipe.query.get(self.recipe_title).serialize()['title'],
+            "recipe_title":Recipe.query.filter_by(recipe_title = recipe_title).first(),
             "recipe_id":Recipe.query.get(self.recipe_id).serialize()['id'], 
             "username": User.query.get(self.user_username).serialize()['username'],
             "image": User.query.get(self.user_image).serialize()['image'],
