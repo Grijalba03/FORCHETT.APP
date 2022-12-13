@@ -1,5 +1,6 @@
 from ..db import db
 from .user import User
+from .recipe import Recipe
 
 
 class UserProfile (db.Model):
@@ -11,6 +12,8 @@ class UserProfile (db.Model):
 
     def serialize(self): 
         user = User.query.get(self.user_id).serialize()
+        print(user.username)
+        
         return { 
             "id": self.id, 
             "username":self.username, 
@@ -21,7 +24,8 @@ class UserProfile (db.Model):
             "instagram":user['instagram'],
             "youtube":user['youtube'], 
             "title":user['title'],
-            "dietaryPreferences":user['dietaryPreferences']
+            "dietaryPreferences":user['dietaryPreferences'],
+            
         }
      
 

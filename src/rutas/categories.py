@@ -6,6 +6,8 @@ from ..modelos import Categories, Recipe
 from flask import Flask, url_for
 from datetime import datetime
 import json
+from ..utils import APIException
+
 
 
 
@@ -32,3 +34,20 @@ def get_category_by_id(category_id):
     print('entramos al endpoint categorias')
     print(auxiliar)
     return jsonify(category), 200
+
+#Post function to add a new category to the DB 
+@app.route('/category', methods = ['POST'])
+def create_new_category():
+    body = request.get_json()
+    if body is None:
+        raise APIException("Body is empty", status_code=400)
+    if body ['category_name'] is None or body['category_name'] =="":
+        raise APIException("Name is invalid", status_code=400) 
+
+    new_category = category(category_name=body['category_name'])
+    category = Categories.query.all() 
+    category = list(map(lambda categories: categories.serialize(), category))  
+
+    db.session.add(new_category)   
+    db.session.commit   
+         

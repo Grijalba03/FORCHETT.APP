@@ -7,3 +7,4 @@ from .categories import get_categories, get_category_by_id
 from .home import get_home_data
 from .userProfile import get_profile_by_username
 from .submitRecepy import create_new_recipe
+from .favorites import get_favorites, adding_favorites

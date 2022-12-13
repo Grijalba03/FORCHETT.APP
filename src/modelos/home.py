@@ -1,6 +1,7 @@
 from ..db import db
 import os
 
+
 class Home(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     categories_list = db.Column(db.Integer, db.ForeignKey('categories.id'))

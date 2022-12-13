@@ -1,12 +1,14 @@
 from ..db import db
 import os
-from .favorite_recipes import Favorite_Recipes
+# from .favorites import Favorites
 from .categories import Categories
+from .user import User
 
 #Recipe Table
 class Recipe (db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(100), nullable=False)
+    #username = db.Column(db.String(100), nullable=False)
+    username= db.Column(db.String(100), db.ForeignKey('user.username'))
     status =  db.Column(db.Boolean(), unique=False, nullable=True)
     category = db.Column(db.Integer, unique=False, nullable=False)
     rating = db.Column(db.Integer, unique=False, nullable=True)
@@ -22,7 +24,7 @@ class Recipe (db.Model):
     ingredients =  db.Column(db.String(500), nullable=False)
     free_of =  db.Column(db.String(500), nullable=True)
     description = db.Column(db.String(300), nullable=False)
-    favorite_recipes = db.relationship("Favorite_Recipes", backref="recipe")
+    favorites = db.relationship("Favorites", backref="recipe")
 
 
 
@@ -33,7 +35,7 @@ class Recipe (db.Model):
         return {
             "id": self.id,
             "username": self.username,
-            "favorite_recipes":self.favorite_recipes,
+            "favorite_recipes":self.favorites,
             "status": self.status,
             "category": self.category,
             "category_name":Categories.query.get(self.category).serialize()['category_name'],

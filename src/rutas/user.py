@@ -71,7 +71,8 @@ def user_login():
         raise APIException("Inválido, intenta de nuevo2", status_code=400)
     # crear token para autenticación
     token = create_access_token(identity=user.id)
-    return jsonify({"token": token})
+    return jsonify({"token": token,
+                    "user_id": user.id })
 
 # funcion logout
 
