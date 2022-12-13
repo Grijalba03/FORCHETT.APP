@@ -56,16 +56,19 @@ def signup():
 @app.route('/login', methods=['POST'])
 def user_login():
     body = request.get_json()
-    email = body['email']
+    # email = body['email']
+    username = body['username']
     pw = body['password']  # campo tabla usuario
     # entontrar la primera coincidencia
-    user = User.query.filter_by(email=email).first()
-    if user is None:
+    user = User.query.filter_by(username=username).first()
+    # user = User.query.filter_by(email=email).first()
+    print('username', username)
+    if username is None:
         # documentar errores con codigo (recomendacion)
-        raise APIException("Inválido, intenta de nuevo", status_code=400)
+        raise APIException("Inválido, intenta de nuevo1", status_code=400)
     # comparando passwords, si no coinciden levantamos el API exception
     if not bcrypt.check_password_hash(user.password, pw):
-        raise APIException("Inválido, intenta de nuevo", status_code=400)
+        raise APIException("Inválido, intenta de nuevo2", status_code=400)
     # crear token para autenticación
     token = create_access_token(identity=user.id)
     return jsonify({"token": token})
