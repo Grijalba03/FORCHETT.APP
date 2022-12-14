@@ -47,6 +47,8 @@ def create_new_recipe():
     prep=body['prep'], bake=body['bake'], preparation=body['preparation'], ingredients=body['ingredients'], 
     description=body['description'], image=body['image'])
 
+    print("new_recipe:", new_recipe)
+
     recipes = Recipe.query.all()
     recipes = list(map( lambda recipe: recipe.serialize(), recipes))
 
@@ -54,9 +56,8 @@ def create_new_recipe():
         if(recipes[i]['title']==new_recipe.serialize()['title']):
             raise APIException("There is already a recipe with the same title." , status_code=400)
             
-    print(new_recipe)
-    #print(new_user.serialize())
+    print("serialized: ",new_recipe.serialize())
     db.session.add(new_recipe) 
     db.session.commit()
     
-    return jsonify({"Result": "The recipe was sent successfully."}), 201
+    return jsonify({"Result": "The recipe was sent successfully."}), 200
