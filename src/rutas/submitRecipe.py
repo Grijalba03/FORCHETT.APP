@@ -11,7 +11,9 @@ from ..utils import APIException
 @jwt_required()
 def create_new_recipe():
     userId = get_jwt_identity()
+    print('userId: ', userId)
     jti = get_jwt()['jti']
+    print('jti', jti)
     foundtoken = Blocked.query.filter_by(blocked_token=jti).first()
     if not foundtoken is None:
         raise APIException("Token has already expired or invalid.", status_code=400)
