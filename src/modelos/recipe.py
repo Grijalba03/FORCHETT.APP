@@ -35,7 +35,6 @@ class Recipe (db.Model):
         return {
             "id": self.id,
             "username": self.username,
-            "favorite_recipes":self.favorites,
             "status": self.status,
             "category": self.category,
             "category_name":Categories.query.get(self.category).serialize()['category_name'],
