@@ -110,8 +110,8 @@ def user_vip():
     return jsonify({"Usuario": user.email})
 
 
-# Función get para llamar a todos los usuarios de la base de datos
-@app.route('/users', methods=['GET'])
+# Get all users
+@app.route('/userlist', methods=['GET'])
 def get_users():
     users = User.query.all()
     # print(users)
@@ -119,9 +119,7 @@ def get_users():
     # print(users)
     return jsonify(users), 200
 
-# funcion para traer usuarions con ID
-
-
+# Get users by id
 @app.route('/user/<int:user_id>', methods=['GET'])
 def get_user_by_id(user_id):
     if user_id == 0:
@@ -129,12 +127,9 @@ def get_user_by_id(user_id):
     user = User.query.get(user_id)
     if user == None:
         raise APIException("El usuario no existe", status_code=400)
-    # print(user.serialize())
     return jsonify(user.serialize()), 200
 
 # funcion para eliminar usuarions con ID
-
-
 @app.route('/user/<int:user_id>', methods=['DELETE'])
 def delete_user_by_id(user_id):
     if user_id == 0:
