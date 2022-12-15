@@ -28,7 +28,7 @@ def adding_favorites():
     if body['name'] is None or body['name']=="":
         raise APIException("name es inválido" , status_code=400)
 
-    new_favorite = Favorites(name=body['name'], height=body['height'], mass=body['mass'], hair_color=body['hair_color'], skin_color=body['skin_color'], eye_color=body['eye_color'], birth_year=body['birth_year'], gender=body['gender'], homeworld=body['homeworld'])
+    new_favorite = Favorites(recipe_title=body['recipe_title'], recipe_Id=body['recipe_Id'], username=body['username'], image=body['image'])
     favorites = Favorites.query.all()
     favorites = list(map( lambda item: item.serialize(), favorites))        
     print(new_favorite)

@@ -23,8 +23,8 @@ class Favorites(db.Model):
             "id": self.id,
             "recipe_title":Recipe.query.filter_by(recipe_title = recipe_title).first(),
             "recipe_id":Recipe.query.get(self.recipe_id).serialize()['id'], 
-            "username": User.query.get(self.user_username).serialize()['username'],
-            "image": User.query.get(self.user_image).serialize()['image'],
+            "username": User.query.filter_by(user_username = user_username).serialize()['username'],
+            "image": User.query.filter_by(user_image = user_image).serialize()['image'],
              
             
         }
