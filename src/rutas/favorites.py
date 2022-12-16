@@ -18,12 +18,14 @@ def get_favorites():
     print("these are your favorites",favorites) 
     if favorites == None:
         raise APIException("Favorites not found", status_code=400) 
-    favorites = list(map(lambda fav: fav, favorites)) 
-    # print("favorites", favorites)
-    
-    str = json.dumps(favorites)
-    print(str)
-    return jsonify(str), 200
+    favorites = list(map(lambda fav: fav.serialize(), favorites)) 
+    print("favorites", favorites)
+    favorites_body= { 
+         "lista de favorites": favorites
+     }
+    return jsonify(favorites_body), 200
+
+
     
                 
 @app.route('/user/favorites', methods=['POST'])

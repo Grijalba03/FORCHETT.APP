@@ -7,6 +7,7 @@ class Categories(db.Model):
     category_name = db.Column(db.String(250), nullable=False)
     recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id'))
     
+    
 
 #Characters serialize
     def serialize(self):
