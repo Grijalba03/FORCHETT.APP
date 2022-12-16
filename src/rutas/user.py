@@ -74,9 +74,8 @@ def user_login():
     return jsonify({"token": token,
                     "user_id": user.id })
 
+
 # funcion logout
-
-
 @app.route('/logout', methods=['POST'])  # cualquier metodo vale
 @jwt_required()  # añadiendo proteccion con token
 def user_logout():

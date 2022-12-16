@@ -28,3 +28,22 @@ def get_recipe_by_id(recipe_id):
         raise APIException("Recipe not found", status_code=400)  
     return jsonify(recipe.serialize()), 200
 
+
+#Search recipe
+@app.route('/search', methods=['POST'])
+def search_recipe():
+    body = request.get_json()
+    print("body: ", body)
+    #Validation
+    if body is None:
+        raise APIException("Error: body is empty", status_code=400)
+    if not body['title'] is None:
+        # search recipe on db
+        getResult = Recipe.query.filter(Recipe.title == body['title']).all()
+        getResult = list(map(lambda item: item.serialize(), getResult))
+        print("result: ",getResult)
+    if getResult == None:
+        raise APIException("Error: recipe does not exist", status_code=400)
+    
+    
+    return jsonify(getResult), 200
