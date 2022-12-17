@@ -5,7 +5,8 @@ import os
 class Imagen(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     ruta = db.Column(db.String(300), unique=True, nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id')) 
+    #recipe_id = db.Column(db.Integer, db.ForeignKey('recipe.id')) 
 
     def __repr__(self):
         return '<Image %r>' % self.id

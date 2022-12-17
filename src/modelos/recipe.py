@@ -3,6 +3,7 @@ import os
 # from .favorites import Favorites
 from .categories import Categories
 from .user import User
+from .images import Imagen
 
 #Recipe Table
 class Recipe (db.Model):
@@ -25,7 +26,7 @@ class Recipe (db.Model):
     free_of =  db.Column(db.String(500), nullable=True)
     description = db.Column(db.String(300), nullable=False)
     favorites = db.relationship("Favorites", backref="recipe")
-
+    #imagen_id = db.relationship("Imagen")
 
 
 
@@ -49,7 +50,10 @@ class Recipe (db.Model):
             "preparation": self.preparation,
             "ingredients": self.ingredients,
             "free_of": self.free_of,
-            "image": self.image,
-            "description": self.description
+            #"image": self.image,
+            "description": self.description,
+            #"imagen_id": self.imagen_id,
+            #"image_ruta": Imagen.query.get(self.imagen_id).serialize()['ruta']
+            
         }
 

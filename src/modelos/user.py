@@ -1,7 +1,5 @@
 from ..db import db
 import os
-# from .favorites import Favorites
-# from .userProfile import UserProfile
 
 
 class User(db.Model):

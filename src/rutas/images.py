@@ -28,7 +28,7 @@ def subirImagen():
         #print(new_user.serialize())
         db.session.add(new_image) 
         db.session.commit()
-        return jsonify({"mensaje": "Imagen creada exitósamente"}), 201
+        return jsonify({"mensaje": "Imagen guardada exitosamente"}), 201
 
     except Exception as err:
         db.session.rollback()
