@@ -20,10 +20,9 @@ def get_favorites():
         raise APIException("Favorites not found", status_code=400) 
     favorites = list(map(lambda fav: fav.serialize(), favorites)) 
     print("favorites", favorites)
-    favorites_body= { 
-         "lista de favorites": favorites
-     }
-    return jsonify(favorites_body), 200
+    
+     
+    return jsonify(favorites), 200
 
 
     
@@ -42,4 +41,16 @@ def adding_favorites():
     db.session.add(new_favorite) 
     db.session.commit()
     
-    return jsonify({"mensaje": "Favorito agregado exitosamente"}), 201
+    return jsonify({"mensaje": "Favorito agregado exitosamente"}), 201 
+
+
+@app.route('/user/favorites', methods=['DELETE'])
+def delete_favorite_by_id(item_id):
+    if item_id==0:
+        raise APIException("Id can't be 0", status_code=400)  
+    planet = Planets.query.get(item_id)
+    if planet == None:
+        raise APIException("El planeta no existe", status_code=400)  
+    db.session.delete(planet)
+    db.session.commit()
+    return jsonify("planeta eliminado exitosamente"), 200
