@@ -1,7 +1,5 @@
 from ..db import db
 import os
-# from .favorites import Favorites
-# from .userProfile import UserProfile
 
 
 class User(db.Model):
@@ -22,6 +20,7 @@ class User(db.Model):
     userProfile = db.relationship("UserProfile", backref="user")
     favorites = db.relationship("Favorites", backref="user")
     recipe = db.relationship("Recipe", backref="user")
+    imagen_id = db.relationship("Imagen")
 
 
 
@@ -43,7 +42,9 @@ class User(db.Model):
             "youtube": self.youtube,
             "image": self.image,
             "userProfile": self.userProfile,
-            "favorites": self.favorites
+            "favorites": self.favorites,
+            "imagen_id": self.imagen_id,
+            "image_ruta": Imagen.query.get(self.imagen_id).serialize()['ruta']
             #comentario
             # do not serialize the password, its a security breach
         }
