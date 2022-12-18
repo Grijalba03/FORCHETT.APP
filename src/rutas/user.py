@@ -262,4 +262,48 @@ def update_user_account_password(username):
         db.session.rollback()
         print(err)
         return jsonify({"response": "error updating user password"}), 500
+
+
+# Usser Account -> Change user profile
+@app.route('/account/update/<string:username>', methods=['PUT'])
+@jwt_required() 
+def update_user_account_profile(username):
+    userId = get_jwt_identity()
+    print('iserId: ', userId)
+    jti = get_jwt()['jti']
+    foundtoken = Blocked.query.filter_by(blocked_token=jti).first()
+
+    if not foundtoken is None:
+        raise APIException("Token has already expired or invalid.", status_code=400)
+    user = User.query.get(userId)
+    print('user: ', user)
+    body = request.get_json()
+    print('body', body)
+
+    try:
+        if body is None:
+            raise APIException("Error: body is empty", status_code=400)
+
+
+        if not body['Dietary-Preference'] is None:
+            user.dietaryPreferences = body['Dietary-Preference']
+        if not body['Title'] is None:
+            user.title = body['Title']
+        if not body['Description'] is None:
+            user.description = body['Description']
+        if not body['Facebook'] is None:
+            user.facebook = body['Facebook']
+        if not body['Instagram'] is None:
+            user.instagram = body['Instagram']
+        if not body['Twitter'] is None:
+            user.twitter = body['Twitter']
+        if not body['Youtube'] is None:
+            user.youtube = body['Youtube']
+        db.session.commit()
+        return jsonify({"Result": "User Profile Updated."})
+    
+    except Exception as err:
+        db.session.rollback()
+        print(err)
+        return jsonify({"response": "error updating user profile"}), 500
     
