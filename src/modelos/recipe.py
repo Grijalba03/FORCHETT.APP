@@ -50,10 +50,8 @@ class Recipe (db.Model):
             "preparation": self.preparation,
             "ingredients": self.ingredients,
             "free_of": self.free_of,
-            #"image": self.image,
+            "image": self.image,
             "description": self.description,
-            #"imagen_id": self.imagen_id,
-            #"image_ruta": Imagen.query.get(self.imagen_id).serialize()['ruta']
             
         }
 
