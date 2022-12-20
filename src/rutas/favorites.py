@@ -42,7 +42,8 @@ def adding_favorites():
 
     # for i in range(len(favorites)):
     #     if(favorites[i]['title']==new_favorite.serialize()['title']):
-    #         raise APIException("There is already a recipe with the same title." , status_code=400)
+    #         raise APIException("There is already a recipe with the same title." , status_code=400) 
+    #probando sonido
 
     new_favorite = Favorites(user_id= user_id, recipe_id=body['recipe_id'])      
     db.session.add(new_favorite) 
