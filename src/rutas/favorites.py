@@ -37,6 +37,13 @@ def adding_favorites():
     if body['recipe_id'] is None or body['recipe_id']=="":
        raise APIException("id es inválido" , status_code=400)
 
+    # favorites = Favorites.query.all()
+    # favorites = list(map( lambda favorite: favorite.serialize(), favorites))
+
+    # for i in range(len(favorites)):
+    #     if(favorites[i]['title']==new_favorite.serialize()['title']):
+    #         raise APIException("There is already a recipe with the same title." , status_code=400)
+
     new_favorite = Favorites(user_id= user_id, recipe_id=body['recipe_id'])      
     db.session.add(new_favorite) 
     db.session.commit()
@@ -44,13 +51,16 @@ def adding_favorites():
     return jsonify({"mensaje": "Favorito agregado exitosamente"}), 201 
 
 
-@app.route('/user/favorites', methods=['DELETE'])
+@app.route('/user/favorites/<int:item_id>', methods=['DELETE'])
 def delete_favorite_by_id(item_id):
     if item_id==0:
         raise APIException("Id can't be 0", status_code=400)  
-    planet = Planets.query.get(item_id)
-    if planet == None:
-        raise APIException("El planeta no existe", status_code=400)  
-    db.session.delete(planet)
+    favorite = Favorites.query.get(item_id)
+    if favorite == None:
+        raise APIException("Favorite doesn't exist", status_code=400)  
+    db.session.delete(favorite)
     db.session.commit()
-    return jsonify("planeta eliminado exitosamente"), 200
+    return jsonify("Favorite deleted"), 200 
+
+
+    

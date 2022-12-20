@@ -62,4 +62,4 @@ def create_new_recipe():
     db.session.add(new_recipe) 
     db.session.commit()
     
-    return jsonify({"Result": "The recipe was sent successfully."}), 200
+    return jsonify({"Result": "The recipe has been sent successfully."}), 200
