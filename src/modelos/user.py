@@ -20,8 +20,8 @@ class User(db.Model):
     userProfile = db.relationship("UserProfile", backref="user")
     favorites = db.relationship("Favorites", backref="user")
     recipe = db.relationship("Recipe", backref="user")
-    imagen_id = db.relationship("Imagen")
-    imagenes_id = db.relationship("RecipesImages")
+    #imagen_id = db.relationship("Imagen")
+    #imagenes_id = db.relationship("RecipesImages")
 
 
 
@@ -43,11 +43,11 @@ class User(db.Model):
             "youtube": self.youtube,
             "image": self.image,
             "userProfile": self.userProfile,
-            "favorites": self.favorites,
-            "imagen_id": self.imagen_id,
-            "image_ruta": Imagen.query.get(self.imagen_id).serialize()['ruta'],
-            "imagenes_id": self.imagenes_id,
-            "imagenes_ruta": RecipesImages.query.get(self.imagenes_id).serialize()['ruta']
+            "favorites": self.favorites
+            #"imagen_id": self.imagen_id,
+            #"image_ruta": Imagen.query.get(self.imagen_id).serialize()['ruta'],
+            #"imagenes_id": self.imagenes_id,
+            #"imagenes_ruta": RecipesImages.query.get(self.imagenes_id).serialize()['ruta']
             #comentario
             # do not serialize the password, its a security breach
         }

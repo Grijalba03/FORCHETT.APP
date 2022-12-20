@@ -3,7 +3,7 @@ import os
 # from .favorites import Favorites
 from .categories import Categories
 from .user import User
-from .images import Imagen
+#from .images import Imagen
 
 #Recipe Table
 class Recipe (db.Model):
