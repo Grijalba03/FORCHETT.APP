@@ -32,7 +32,7 @@ CORS(app)
 setup_admin(app)
 
 #####  Importar Modelos  ####
-from src.modelos import Blocked, User, UserProfile, Recipe, Favorites, Categories, Recommendations, Reviews, Imagen, RecipesImages
+from src.modelos import Blocked, User, UserProfile, Recipe, Favorites, Categories, Recommendations, Reviews #Imagen, RecipesImages
 
 
 ##### Importar las Rutas ####
@@ -41,8 +41,8 @@ from src.rutas import get_categories, get_category_by_id
 from src.rutas import get_profile_by_username
 from src.rutas import get_recipes, get_recipe_by_id
 from src.rutas import get_favorites, adding_favorites
-from src.rutas import subirImagen, allImages
-from src.rutas import subirImagenRecipe, allImagesRecipes
+#from src.rutas import subirImagen, allImages
+#from src.rutas import subirImagenRecipe, allImagesRecipes
 
 
 # Handle/serialize errors like a JSON object
