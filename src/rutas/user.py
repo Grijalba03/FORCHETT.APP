@@ -285,6 +285,8 @@ def update_user_account_profile(username):
             raise APIException("Error: body is empty", status_code=400)
 
 
+        if not body['Avatar'] is None:
+            user.image = body['Avatar']
         if not body['Dietary-Preference'] is None:
             user.dietaryPreferences = body['Dietary-Preference']
         if not body['Title'] is None:
