@@ -1,6 +1,5 @@
 from ..db import db
 import os
-from .favorite_recipes import Favorite_Recipes
 
 
 class User(db.Model):
@@ -10,12 +9,24 @@ class User(db.Model):
     description = db.Column(db.String(250), unique=False, nullable=True)
     username = db.Column(db.String(15), unique=True, nullable=False)
     dietaryPreferences = db.Column(db.String(100), unique=False, nullable=True)
-    userTitle =  db.Column(db.String(100), unique=False, nullable=True)
-    userstatus =  db.Column(db.Boolean(), unique=False, nullable=True)
+    title =  db.Column(db.String(100), unique=False, nullable=True)
+    image =  db.Column(db.String(100), unique=False, nullable=True)
+    status =  db.Column(db.Boolean(), unique=False, nullable=True) 
+    facebook = db.Column(db.String(100),unique=False, nullable=True)
+    twitter = db.Column(db.String(100),unique=False, nullable=True)
+    instagram = db.Column(db.String(100),unique=False, nullable=True)
+    youtube = db.Column(db.String(100),unique=False, nullable=True)
+    # userProfile_id= db.Column(db.Integer, db.ForeignKey('userprofile.id'))
+    userProfile = db.relationship("UserProfile", backref="user")
+    favorites = db.relationship("Favorites", backref="user")
+    recipe = db.relationship("Recipe", backref="user")
+    #imagen_id = db.relationship("Imagen")
+    #imagenes_id = db.relationship("RecipesImages")
+
 
 
     def __repr__(self):
-        return '<User %r>' % self.email
+        return '<User %r>' % self.username
 
     def serialize(self):
         return {
@@ -24,8 +35,19 @@ class User(db.Model):
             "description": self.description,
             "username": self.username, 
             "dietaryPreferences": self.dietaryPreferences,
-            "userTitle": self.userTitle,
-            "userStatus": self.userstatus
+            "title": self.title,
+            "status": self.status,
+            "facebook": self.facebook,
+            "twitter": self.twitter,
+            "instagram": self.instagram,
+            "youtube": self.youtube,
+            "image": self.image,
+            "userProfile": self.userProfile,
+            "favorites": self.favorites
+            #"imagen_id": self.imagen_id,
+            #"image_ruta": Imagen.query.get(self.imagen_id).serialize()['ruta'],
+            #"imagenes_id": self.imagenes_id,
+            #"imagenes_ruta": RecipesImages.query.get(self.imagenes_id).serialize()['ruta']
             #comentario
             # do not serialize the password, its a security breach
         }

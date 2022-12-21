@@ -32,16 +32,17 @@ CORS(app)
 setup_admin(app)
 
 #####  Importar Modelos  ####
-from src.modelos import Blocked, User, Recipe, Favorite_Recipes, Categories, Recommendations, Reviews
+from src.modelos import Blocked, User, UserProfile, Recipe, Favorites, Categories, Recommendations, Reviews #Imagen, RecipesImages
 
 
 ##### Importar las Rutas ####
-from src.rutas import signup, user_login, user_logout, user_profile, get_user_by_id, delete_user_by_id, get_users, hello_protected, allUsers
-from src.rutas import get_people, get_people_by_id, create_new_person, put_people_by_id, busqueda_people, delete_character_by_id
-from src.rutas import get_planets, get_planet_by_id, create_new_planet, delete_planet_by_id
-from src.rutas import get_vehicles, get_vehicle_by_id, create_new_vehicle, delete_vehicle_by_id
-from src.rutas import get_categories
-from src.rutas import get_recipes
+from src.rutas import signup, user_login, user_logout, user_vip, get_user_by_id, delete_user_by_id, get_users, hello_protected, allUsers
+from src.rutas import get_categories, get_category_by_id
+from src.rutas import get_profile_by_username
+from src.rutas import get_recipes, get_recipe_by_id
+from src.rutas import get_favorites, adding_favorites
+#from src.rutas import subirImagen, allImages
+#from src.rutas import subirImagenRecipe, allImagesRecipes
 
 
 # Handle/serialize errors like a JSON object
@@ -65,5 +66,5 @@ def handle_hello():
 
 # this only runs if `$ python src/main.py` is executed
 if __name__ == '__main__':
-    PORT = int(os.environ.get('PORT', 3000))
+    PORT = int(os.environ.get('PORT', 3001))
     app.run(host='0.0.0.0', port=PORT, debug=False)

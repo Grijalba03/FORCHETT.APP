@@ -1,8 +1,10 @@
 from .user import User
 from .blocked import Blocked
 from .recipe import Recipe
-from .favorite_recipes import Favorite_Recipes
+from .favorites import Favorites
 from .categories import Categories
 from .recommendations import Recommendations
 from .reviews import Reviews
-
+from .userProfile import UserProfile
+#from .images import Imagen
+#from .recipesimages import RecipesImages

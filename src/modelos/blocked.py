@@ -1,7 +1,7 @@
 from ..db import db
 import os
 
-#Tokens bloqueados
+#Blocked Tokens
 class Blocked(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     blocked_token = db.Column(db.String(250))
